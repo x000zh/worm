@@ -91,7 +91,7 @@ func DecryptInt64(i string, key []byte) (int64, error) {
 	return int64(ui), nil
 }
 
-var bytesOrder = []int{6, 9, 8, 7, 5}
+var bytesOrder = []int{6, 5, 8, 7, 4}
 
 //var bytesOrder = []int{6, 8, 7, 5}
 

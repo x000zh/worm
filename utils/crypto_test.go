@@ -49,7 +49,8 @@ func TestEncryptDecryptInt64(t *testing.T) {
 
 func TestEncodeDecodeInt64(t *testing.T) {
 	//key := []byte("bac0cd32ad54d0e10665ca8593ec9e2e")
-	key := uint64(0x6ca3bb584523124c)
+	//key := uint64(0x6ca3bb584523124c)
+	key := uint64(0xbac0cd32ad54d0e1)
 	for j := int64(-5); j < 10; j += 1 {
 		i := j
 		if j > 5 {
