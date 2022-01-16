@@ -2,9 +2,12 @@ package utils
 
 import (
 	"fmt"
+	"strings"
 	//"math/rand"
 	//"net"
 	"reflect"
+
+	"github.com/pkg/errors"
 	//"time"
 )
 
@@ -50,4 +53,37 @@ func GetValuesOfSlice(v interface{}, key string) (interface{}, error) {
 		return ret.Interface(), nil
 	}
 	return nil, fmt.Errorf("invald type")
+}
+
+
+func JoinSlice(arr interface{}, sep string) (ret string, err error) {
+	r := reflect.ValueOf(arr)
+	if r.Kind() == reflect.Slice {
+		length := r.Len()
+		elemType := reflect.TypeOf(arr).Elem()
+		sArr := make([]string, length)
+		for i:= 0; i < length; i++ {
+			v := r.Index(i)
+			switch elemType.Kind() {
+			case reflect.Int16,
+				 reflect.Int32,
+				 reflect.Int64,
+			 	 reflect.Uint16,
+				 reflect.Uint32,
+				 reflect.Uint64,
+				 reflect.Int,
+				 reflect.Uint:
+					sArr[i] = fmt.Sprintf("%d", v.Interface())
+			case reflect.String:
+					sArr[i] = v.String()
+			default:
+				sArr[i] = fmt.Sprintf("%v", v.Interface())
+			}
+		}
+		ret = strings.Join(sArr, sep)
+		return
+	} else {
+		err = errors.Errorf("invalid type %s, expect slice", r.Kind().String())
+	}
+	return
 }

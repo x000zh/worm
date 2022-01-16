@@ -68,3 +68,19 @@ func TestGetValuesOfSlice(t *testing.T) {
 		return
 	}
 }
+
+
+func TestJoinSlice(t *testing.T) {
+	a := []int64 {
+		1,
+		2,
+		3,
+	}
+
+	s, _ := JoinSlice(a, ",")
+	t.Log(s)
+
+
+	_, err := JoinSlice("123", ",")
+	t.Log(err)
+}
