@@ -80,7 +80,7 @@ func TestSubCipher(t *testing.T) {
 		t.Logf("%s", JoinRunes(runes, ","))
 	}
 
-	nList := []int{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 600000, 6000}
+	nList := []int{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 600000, 6000, 9999999}
 	for _, n := range nList {
 		s := SubCipherEncode(cipher, n, 6)
 		d := SubCipherDecode(cipher, s, 6)

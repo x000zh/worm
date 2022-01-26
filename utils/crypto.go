@@ -213,12 +213,11 @@ func SubCipherEncode(cipher [][]rune, input int, min int) string {
 	pattern := fmt.Sprintf("%%0%dd", min)
 	s := fmt.Sprintf(pattern, input)
 	l := len(s)
-	
 	ret := make([]string, l)
 	cipherLen := len(cipher)
 	j := 0
 	for i:=l-1; i>=0; i-=1 {
-		if i < cipherLen {
+		if j < cipherLen {
 			ret[j] = fmt.Sprintf("%c", cipher[j][s[i] % '0'])
 		} else {
 			ret[j] = fmt.Sprintf("%c", s[i])
@@ -240,13 +239,13 @@ func SubCipherDecode(cipher [][]rune, s string, min int) int {
 	ret := make([]rune, l)
 	j := l-1
 	for i:=0; i<l; i+=1 {
-		idx := 0
-		for ii, r := range cipher[i] {
-			if r == rune(s[i]) {
-				idx = ii
-			}
-		}
 		if i < cipherLen {
+			idx := 0
+			for ii, r := range cipher[i] {
+				if r == rune(s[i]) {
+					idx = ii
+				}
+			}
 			ret[j] = rune(idx) + '0'
 		} else {
 			ret[j] = rune(s[i])
