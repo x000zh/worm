@@ -69,3 +69,21 @@ func TestEncodeDecodeInt64(t *testing.T) {
 		}
 	}
 }
+
+
+func TestSubCipher(t *testing.T) {
+	chars := []rune{'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'}
+
+	cipher := SubCipher(chars, 6)
+
+	for _, runes := range cipher {
+		t.Logf("%s", JoinRunes(runes, ","))
+	}
+
+	nList := []int{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 600000, 6000}
+	for _, n := range nList {
+		s := SubCipherEncode(cipher, n, 6)
+		d := SubCipherDecode(cipher, s, 6)
+		t.Logf("%d => %s => %d", n, s, d)
+	}
+}

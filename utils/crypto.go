@@ -11,6 +11,7 @@ import (
 	"encoding/hex"
 	"fmt"
 	"math/rand"
+	"strconv"
 	"unicode/utf8"
 )
 
@@ -187,3 +188,74 @@ func Crc16(bs []byte) (crc uint16) {
 
 	return
 }
+
+
+//
+func SubCipher(chars []rune, n int) [][]rune {
+	ret := make([][]rune, n)
+	cLen := len(chars)
+	for i:=0; i<n; i+=1 {
+		ret[i] = make([]rune, cLen)
+		for j:=0; j<cLen; j+=1 {
+			ret[i][j] = chars[j]
+		}
+		rand.Shuffle(cLen, func(j, k int) {
+			t := ret[i][k]
+			ret[i][k] = ret[i][j]
+			ret[i][j] = t
+		})
+	}
+
+	return ret
+}
+
+func SubCipherEncode(cipher [][]rune, input int, min int) string {
+	pattern := fmt.Sprintf("%%0%dd", min)
+	s := fmt.Sprintf(pattern, input)
+	l := len(s)
+	
+	ret := make([]string, l)
+	cipherLen := len(cipher)
+	j := 0
+	for i:=l-1; i>=0; i-=1 {
+		if i < cipherLen {
+			ret[j] = fmt.Sprintf("%c", cipher[j][s[i] % '0'])
+		} else {
+			ret[j] = fmt.Sprintf("%c", s[i])
+		}
+		j += 1
+	}
+
+	out, _ := JoinSlice(ret, "")
+	return out
+}
+
+
+func SubCipherDecode(cipher [][]rune, s string, min int) int {
+	l := len(s)
+	if l < min {
+		l = min
+	}
+	cipherLen := len(cipher)
+	ret := make([]rune, l)
+	j := l-1
+	for i:=0; i<l; i+=1 {
+		idx := 0
+		for ii, r := range cipher[i] {
+			if r == rune(s[i]) {
+				idx = ii
+			}
+		}
+		if i < cipherLen {
+			ret[j] = rune(idx) + '0'
+		} else {
+			ret[j] = rune(s[i])
+		}
+		j -= 1
+	}
+
+	out, _ := strconv.Atoi(JoinRunes(ret, ""))
+	return out
+}
+
+

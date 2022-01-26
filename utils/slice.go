@@ -87,3 +87,13 @@ func JoinSlice(arr interface{}, sep string) (ret string, err error) {
 	}
 	return
 }
+
+
+func JoinRunes(arr []rune, sep string) string {
+	l := len(arr)
+	ret := make([]string, l)
+	for i:=0; i<l; i+=1 {
+		ret[i] = fmt.Sprintf("%c", arr[i])
+	}
+	return strings.Join(ret, sep)
+}
