@@ -5,6 +5,7 @@ import (
 	"crypto/cipher"
 	"crypto/sha1"
 	"crypto/sha256"
+	"crypto/md5"
 	"encoding/base32"
 	"encoding/base64"
 	"encoding/binary"
@@ -34,14 +35,27 @@ func RandomString(len int) string {
 	return s
 }
 
+//base64encode
 func Sha1s(input string) string {
 	payload := sha1.Sum([]byte(input))
 	return base64.RawStdEncoding.EncodeToString(payload[:])
 }
 
+//base64encode
 func Sha256s(input string) string {
 	payload := sha256.Sum256([]byte(input))
 	return base64.RawStdEncoding.EncodeToString(payload[:])
+}
+
+//base64encode
+func Md5s(input string) string {
+	payload := md5.Sum([]byte(input))
+	return base64.RawStdEncoding.EncodeToString(payload[:])
+}
+
+func Md5hex(input string) string {
+	payload := md5.Sum([]byte(input))
+	return fmt.Sprintf("%x", payload)
 }
 
 //key []byte 32/24/16 bytes

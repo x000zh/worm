@@ -24,6 +24,22 @@ func TestSha256s(t *testing.T) {
 	}
 }
 
+
+func TestMd5s(t *testing.T) {
+	s := Md5s(RandomString(500))
+	t.Logf("%s", s)
+	if utf8.RuneCountInString(s) >= 100 {
+		t.Error("to long")
+	}
+}
+
+
+func TestMd5hex(t *testing.T) {
+	s := Md5hex("1")
+	t.Logf("%s", s)
+}
+
+
 func TestEncryptDecryptInt64(t *testing.T) {
 	var i int64
 	//key := []byte("bac0cd32ad54d0e10665ca8593ec9e2e")
