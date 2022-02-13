@@ -2,7 +2,9 @@ package utils
 
 import (
 	"fmt"
+	"strconv"
 	"strings"
+
 	//"math/rand"
 	//"net"
 	"reflect"
@@ -96,4 +98,17 @@ func JoinRunes(arr []rune, sep string) string {
 		ret[i] = fmt.Sprintf("%c", arr[i])
 	}
 	return strings.Join(ret, sep)
+}
+
+
+func IntSlice(arr []string) []int {
+	ret := make([]int, len(arr))
+	if (len(ret) == 0) {
+		return ret
+	}
+
+	for i, s := range arr {
+		ret[i], _ = strconv.Atoi(s)
+	}
+	return ret
 }
