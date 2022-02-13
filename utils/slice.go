@@ -101,7 +101,7 @@ func JoinRunes(arr []rune, sep string) string {
 }
 
 
-func IntSlice(arr []string) []int {
+func SliceStringToInt(arr []string) []int {
 	ret := make([]int, len(arr))
 	if (len(ret) == 0) {
 		return ret
