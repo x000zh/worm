@@ -26,3 +26,12 @@ func GetDT(t time.Time) int32 {
 	i, _ := strconv.Atoi(dt)
 	return int32(i)
 }
+
+
+const DATE_FORMAT_DT = "20060102"
+const DATE_FORMAT_DATE = "2006-01-02"
+
+func FormatDate(secs int64, layout string) string {
+	t := time.Unix(secs, 0)
+	return t.Format(layout)
+}
