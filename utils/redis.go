@@ -9,7 +9,6 @@ import (
 	"github.com/go-redis/redis/v8"
 )
 
-
 // 压缩存储
 func RedisGzipSet(ctx context.Context, redisClient *redis.Client, key string, data []byte, expired time.Duration) error {
 
@@ -47,7 +46,7 @@ func RedisGzipGet(ctx context.Context, redisClient *redis.Client, key string) ([
 			out.Write(bs[0:n])
 		}
 		if nil != err {
-			return nil, err
+			break;
 		}
 	}
 	return out.Bytes(), nil
