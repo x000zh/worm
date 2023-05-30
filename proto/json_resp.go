@@ -1,7 +1,8 @@
 package proto
 
-import(
-    "encoding/json"
+import (
+	"encoding/json"
+	"fmt"
 )
 
 //Resp - 返回值
@@ -11,6 +12,9 @@ type Resp struct  {
     ErrMsg string `json:"errMsg"`
 }
 
+func (r *Resp) Error() string {
+	return fmt.Sprintf("ErrNo=%d, ErrMsg=%s", r.ErrNo, r.ErrMsg)
+}
 
 //解析返回
 func ParseResp(payload []byte, resp *Resp) error {
